@@ -4,42 +4,39 @@ import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
-public class Measurement {
+@Table(name ="MEASUREMENTS")
+public class   Measurement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer measurementId;
-    
+    @Column(name = "measurement_Id")
+    private Long measurementId;
+
+    private Integer pantMeasurementNo;
+
+    private Integer shirtMeasurementNo;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="customer_id")
-    @JsonIgnoreProperties("measurements")
+    @JoinColumn(name = "customer_Id", nullable = false)
     private Customer customer;
 
-    private LocalDate measurementDate;
-    
-    private String notes;
+    private LocalDate createdDate;
     
     @OneToOne(mappedBy = "measurement",
-            cascade = CascadeType.ALL)
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private PantMeasurement pantMeasurement;
 
     @OneToOne(mappedBy = "measurement",
-            cascade = CascadeType.ALL)
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private ShirtMeasurement shirtMeasurement;
 
   

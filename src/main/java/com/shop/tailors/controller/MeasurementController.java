@@ -1,14 +1,15 @@
 package com.shop.tailors.controller;
 
+import com.shop.tailors.dto.PantMeasurementDTO;
+import com.shop.tailors.dto.ShirtMeasurementDTO;
+import com.shop.tailors.service.PantMeasurementService;
+import com.shop.tailors.service.ShirtMeasurementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.shop.tailors.dto.MeasurementRequest;
-
-import com.shop.tailors.entity.Measurement;
-import com.shop.tailors.service.MeasurementService;
+import java.util.List;
 
 @RestController
 @RequestMapping("/measurement")
@@ -16,13 +17,18 @@ import com.shop.tailors.service.MeasurementService;
 public class MeasurementController {
 
 	@Autowired
-	private MeasurementService measurementService;
+	private ShirtMeasurementService shirtMeasurementService;
 
-	@PostMapping("/create/measurement")
-	public ResponseEntity<Measurement> createMeasurement(@RequestBody MeasurementRequest request) {
+	@Autowired
+    private PantMeasurementService pantMeasurementService;
+
+
+
+	@PostMapping("/create/shirt/measurement")
+	public ResponseEntity<ShirtMeasurementDTO> createShirtMeasurement(@RequestBody ShirtMeasurementDTO shirtRequest) {
 		try {
-			Measurement newMeasurement = measurementService.createMeasurementFromDto(request);
-			return new ResponseEntity<>(newMeasurement, HttpStatus.CREATED);
+			ShirtMeasurementDTO savedMeasurement = shirtMeasurementService.saveShirtMeasurement(shirtRequest);
+			return new ResponseEntity<>(savedMeasurement, HttpStatus.CREATED);
 		} catch (java.util.NoSuchElementException ex) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} catch (IllegalArgumentException ex) {
@@ -30,25 +36,43 @@ public class MeasurementController {
 		}
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<Measurement> getMeasurementById(@PathVariable Integer id) {
+	@PostMapping("/create/pant/measurement")
+	public ResponseEntity<PantMeasurementDTO> createPantMeasurement(@RequestBody PantMeasurementDTO pantRequest) {
 		try {
-			Measurement measurement = measurementService.getMeasurementById(id);
-			return new ResponseEntity<>(measurement, HttpStatus.OK);
+			PantMeasurementDTO savedMeasurement = pantMeasurementService.savePantMeasurement(pantRequest);
+			return new ResponseEntity<>(savedMeasurement, HttpStatus.CREATED);
 		} catch (java.util.NoSuchElementException ex) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} catch (IllegalArgumentException ex) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+/*
+	@GetMapping("/get/shirt/measurement/{id}")
+	public ResponseEntity<ShirtMeasurementDTO> getShirtMeasurement(@PathVariable("id") Long customerId) {
+
+		try {
+			ShirtMeasurementDTO shirtMeasurement = shirtMeasurementService.getShirtMeasurement(customerId);
+			return new ResponseEntity<>(shirtMeasurement, HttpStatus.OK);
+		} catch (java.util.NoSuchElementException ex) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} catch (IllegalArgumentException ex) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
 
-	// ✅ ADDED - GREEN START
-	@GetMapping("/{id}")
-	public ResponseEntity<Measurement> getMeasurementById(@PathVariable Integer id) {
+	@GetMapping("/get/pant/measurement/{id}")
+	public ResponseEntity<PantMeasurementDTO> getPantMeasurement(@PathVariable("id") Long customerId) {
+
 		try {
-			Measurement measurement = measurementService.getMeasurementById(id);
-			return new ResponseEntity<>(measurement, HttpStatus.OK);
+			PantMeasurementDTO pantMeasurement = pantMeasurementService.getPantMeasurement(customerId);
+			return new ResponseEntity<>(pantMeasurement, HttpStatus.OK);
 		} catch (java.util.NoSuchElementException ex) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} catch (IllegalArgumentException ex) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
-	// ✅ ADDED - GREEN END
+*/
+
 }

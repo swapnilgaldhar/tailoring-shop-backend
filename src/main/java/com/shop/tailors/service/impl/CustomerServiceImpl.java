@@ -17,9 +17,8 @@ public class CustomerServiceImpl implements CustomerService {
 	private CustomerRepository customerRepository;
 
 	@Override
-	public Customer createUser(Customer customer) {
-		// TODO Auto-generated method stub
-		
+	public Customer createCustomer(Customer customer) {
+
 		Customer newCustomer =  customerRepository.save(customer);
 		
 		return newCustomer;
@@ -27,21 +26,21 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public List<Customer> getAllCustomers() {
-		// TODO Auto-generated method stub
+
 		List<Customer> allCustomers =  customerRepository.findAll();
 		return allCustomers;
 	}
 
 	@Override
-    public Customer getCustomerById(Integer id) {
+    public Customer getCustomerById(Long customerId) {
 
-        Optional<Customer> customer = customerRepository.findById(id);
+        Optional<Customer> customer = customerRepository.findById(customerId);
 
         if (customer.isPresent()) {
             return customer.get();
         }
 
-        throw new RuntimeException("Customer not found with Id : " + id);
+        throw new RuntimeException("Customer not found with Id : " + customerId);
     }
 
 

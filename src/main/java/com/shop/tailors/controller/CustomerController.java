@@ -27,12 +27,12 @@ public class CustomerController {
 	
 	@PostMapping("/create")
 	public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
-		Customer newCustomer = customerService.createUser(customer);
+		Customer newCustomer = customerService.createCustomer(customer);
 		return new ResponseEntity<>(newCustomer, HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/getcustomer/{id}")
-	public ResponseEntity<Customer> getCustomerById(@PathVariable Integer  id){
+	public ResponseEntity<Customer> getCustomerById(@PathVariable Long id){
 		Customer oneCustomer = customerService.getCustomerById(id);
 		return new ResponseEntity<>(oneCustomer, HttpStatus.OK);
 	}

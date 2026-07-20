@@ -9,10 +9,11 @@ import com.shop.tailors.entity.Customer;
 
 public interface CustomerService {
 
-	Customer createUser(Customer customer);
+
 
 	List<Customer> getAllCustomers();
 
-	Customer getCustomerById( Integer id);
+	Customer getCustomerById( Long id);
 
+	Customer createCustomer(Customer customer);
 }

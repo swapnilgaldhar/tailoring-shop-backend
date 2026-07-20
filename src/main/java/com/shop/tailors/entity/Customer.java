@@ -1,33 +1,24 @@
 package com.shop.tailors.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Table(name = "CUSTOMERS")
-///@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 public class Customer {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int custId;
+	private Long customerId;
 	
 	@Column(nullable = false)
-	private String custName;
+	private String customerName;
 	
 	@Column(nullable = false, unique = true)
 	private Long mobileNumber;
@@ -35,9 +26,9 @@ public class Customer {
 	@Column(nullable = false)
 	private String address;
 	
-	private Double balence;
-	
-	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-	private List<Measurement> measurements = new ArrayList<>();
+	private Double balance=0.0;
+
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Measurement> measurements;
 
 }

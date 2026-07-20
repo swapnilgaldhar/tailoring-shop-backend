@@ -1,11 +1,6 @@
 package com.shop.tailors.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,12 +9,12 @@ import lombok.Setter;
 @Setter
 public class ShirtMeasurement {
 
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer shirtMeasurementId;
 
     @OneToOne
-    @JoinColumn(name="measurement_id")
+    @JoinColumn(name = "measurement_Id", nullable = false, unique = true)
     private Measurement measurement;
     
     private Double chest;
@@ -37,4 +32,6 @@ public class ShirtMeasurement {
     private Double neck;
     
     private Double cuff;
+
+    private String notes;
 }
