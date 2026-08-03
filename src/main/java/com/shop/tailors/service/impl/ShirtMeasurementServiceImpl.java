@@ -3,11 +3,13 @@ package com.shop.tailors.service.impl;
 import com.shop.tailors.dto.ShirtMeasurementDTO;
 import com.shop.tailors.entity.Customer;
 import com.shop.tailors.entity.Measurement;
+import com.shop.tailors.entity.PantMeasurement;
 import com.shop.tailors.entity.ShirtMeasurement;
 import com.shop.tailors.repository.CustomerRepository;
 import com.shop.tailors.repository.MeasurementRepo;
 import com.shop.tailors.repository.ShirtMeasurementRepo;
 import com.shop.tailors.service.ShirtMeasurementService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +18,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 import java.util.NoSuchElementException;
 
+@Slf4j
 @Service
 public class ShirtMeasurementServiceImpl implements ShirtMeasurementService {
 
@@ -40,7 +43,7 @@ public class ShirtMeasurementServiceImpl implements ShirtMeasurementService {
         measurement.setCreatedDate(LocalDate.now());
 
         Integer existingShirtMeasurement = getExistingShirtMeasurement(customer.getCustomerId());
-
+        log.info("Existing shirt measurement number for customer {}: {}", customer.getCustomerId(), existingShirtMeasurement);
         measurement.setShirtMeasurementNo(existingShirtMeasurement != null ? existingShirtMeasurement + 1 : 1);
 
         measurementRepository.save(measurement);
@@ -57,7 +60,7 @@ public class ShirtMeasurementServiceImpl implements ShirtMeasurementService {
         shirtMeasurement.setCuff(shirtMeasurementDTO.getCuff());
         shirtMeasurement.setNotes(shirtMeasurementDTO.getNotes());
 
-
+        log.info("Saving shirt measurement for customer {}: {}", customer.getCustomerId(), shirtMeasurement);
         shirtMeasurementRepository.save(shirtMeasurement);
         return shirtMeasurementDTO;
     }
@@ -67,19 +70,41 @@ public class ShirtMeasurementServiceImpl implements ShirtMeasurementService {
     private Integer getExistingShirtMeasurement(Long customerId) {
         return measurementRepository.findLatestShirtMeasurementNoByCustomerId(customerId);
     }
-/*
+
     @Override
     public ShirtMeasurementDTO getShirtMeasurement(Long customerId) {
 
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NoSuchElementException("Customer not found"));
+        log.info("Retrieved customer {}: {}", customerId, customer);
 
-        Integer existingShirtMeasurement = getExistingShirtMeasurement(customer.getCustomerId());
+        Long customerid = customer.getCustomerId();
 
+        Measurement measurement = latestShirtMeasurement(customerid);
 
-        ShirtMeasurement shirtMeasurement = shirtMeasurementRepository
-                .getShirtMeasurementLatestShirtMeasurementNo(customer.getCustomerId());
-              //  .orElseThrow(() -> new NoSuchElementException("Shirt measurement not found for customer"));
+        log.info("Measurement : {}", measurement);
+
+        ShirtMeasurement shirtMeasurement =
+                shirtMeasurementRepository.getShirtMeasurementLatestShirtMeasurementNo(
+                        measurement.getMeasurementId());
+
+        log.info("Shirt Measurement : {}", shirtMeasurement);
+
+        log.info("Retrieved customer {}: {}", customerId, customer);
+      //  Long customerid = customer.getCustomerId();
+      //  Measurement measurement = latestShirtMeasurement(customerid);
+
+        if (measurement == null) {
+            throw new NoSuchElementException("Measurement not found");
+        }
+
+       // ShirtMeasurement shirtMeasurement = shirtMeasurementRepository
+              //  .getShirtMeasurementLatestShirtMeasurementNo(measurement.getMeasurementId());
+
+        log.info("Retrieved shirt measurement for customer {}: {}", customerId, shirtMeasurement);
+        if (shirtMeasurement == null) {
+            throw new NoSuchElementException("Shirt measurement not found for customer");
+        }
 
         ShirtMeasurementDTO shirtMeasurementDTO = new ShirtMeasurementDTO();
         shirtMeasurementDTO.setMeasurementId(shirtMeasurement.getMeasurement().getMeasurementId());
@@ -96,8 +121,12 @@ public class ShirtMeasurementServiceImpl implements ShirtMeasurementService {
 
         return shirtMeasurementDTO;
     }
+    private Measurement latestShirtMeasurement(Long customerid) {
+        Integer latestShirtMeasurementNo = measurementRepository.findLatestShirtMeasurementNoByCustomerId(customerid);
+        log.info("Latest shirt measurement number for customer {}: {}", customerid, latestShirtMeasurementNo);
+        return measurementRepository.findMeasurementByCustomerIdAndLatestShirtMeasurementNo(customerid, latestShirtMeasurementNo);
+    }
 
-*/
 
 
 }

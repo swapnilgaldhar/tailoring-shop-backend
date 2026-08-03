@@ -8,6 +8,7 @@ import com.shop.tailors.repository.CustomerRepository;
 import com.shop.tailors.repository.MeasurementRepo;
 import com.shop.tailors.repository.PantMeasurementRepo;
 import com.shop.tailors.service.PantMeasurementService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.NoSuchElementException;
 
+@Slf4j
 @Service
 public class  PantMeasurementServiceImpl implements PantMeasurementService {
 
@@ -66,12 +68,13 @@ public class  PantMeasurementServiceImpl implements PantMeasurementService {
     private Integer getExistingPantMeasurement(Long customerId) {
         return measurementRepository.findLatestPantMeasurementNoByCustomerId(customerId);
     }
-/*
+
     @Override
     public PantMeasurementDTO getPantMeasurement(Long customerId) {
 
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new NoSuchElementException("Customer not found"));
+
         Long customerid = customer.getCustomerId();
         Measurement measurement = latestPantMeasurement(customerid);
 
@@ -94,9 +97,10 @@ public class  PantMeasurementServiceImpl implements PantMeasurementService {
 
         return pantMeasurementDTO;
     }
-*/
+
     private Measurement latestPantMeasurement(Long customerid) {
         Integer latestPantMeasurementNo = measurementRepository.findLatestPantMeasurementNoByCustomerId(customerid);
+        log.info("Latest pant measurement number for customer {}: {}", customerid, latestPantMeasurementNo);
         return measurementRepository.findMeasurementByCustomerIdAndLatestPantMeasurementNo(customerid, latestPantMeasurementNo);
     }
 

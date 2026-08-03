@@ -11,8 +11,6 @@ import java.util.Optional;
 @Repository
 public interface ShirtMeasurementRepo extends JpaRepository<ShirtMeasurement, Integer> {
 
-    Optional<ShirtMeasurement> findByMeasurementMeasurementId(Long measurementId);
-
     @Query("SELECT sm FROM ShirtMeasurement sm WHERE sm.measurement.measurementId = :measurementId")
     ShirtMeasurement getShirtMeasurementLatestShirtMeasurementNo(Long measurementId);
 }

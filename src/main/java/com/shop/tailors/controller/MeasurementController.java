@@ -47,7 +47,7 @@ public class MeasurementController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
-/*
+
 	@GetMapping("/get/shirt/measurement/{id}")
 	public ResponseEntity<ShirtMeasurementDTO> getShirtMeasurement(@PathVariable("id") Long customerId) {
 
@@ -73,6 +73,6 @@ public class MeasurementController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 	}
-*/
+
 
 }

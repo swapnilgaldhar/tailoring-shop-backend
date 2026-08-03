@@ -13,9 +13,6 @@ import java.util.Optional;
 @Repository
 public interface MeasurementRepo extends JpaRepository<Measurement, Long> {
 	@EntityGraph(attributePaths = {"pantMeasurement", "shirtMeasurement"})
-	Optional<Measurement> findTopByCustomerCustomerIdOrderByMeasurementIdDesc(Long customerId);
-
-	Optional<Measurement> findByMeasurementIdAndCustomerCustomerId(Long measurementId, Long customerId);
 
 	@Query("SELECT COALESCE(MAX(m.pantMeasurementNo), 0) FROM Measurement m WHERE m.customer.customerId = :customerId")
 	Integer findLatestPantMeasurementNoByCustomerId(Long customerId);
@@ -25,4 +22,7 @@ public interface MeasurementRepo extends JpaRepository<Measurement, Long> {
 
 	@Query("SELECT COALESCE(MAX(m.shirtMeasurementNo), 0) FROM Measurement m WHERE m.customer.customerId = :customerId")
 	Integer findLatestShirtMeasurementNoByCustomerId(Long customerId);
+
+	@Query("SELECT m FROM Measurement m WHERE m.customer.customerId = :customerId AND m.shirtMeasurementNo = :latestShirtMeasurementNo")
+	Measurement findMeasurementByCustomerIdAndLatestShirtMeasurementNo(Long customerId, Integer latestShirtMeasurementNo);
 }
