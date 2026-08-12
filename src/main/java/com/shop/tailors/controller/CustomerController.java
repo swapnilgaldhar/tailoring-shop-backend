@@ -5,13 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.shop.tailors.entity.Customer;
 import com.shop.tailors.service.CustomerService;
@@ -42,5 +36,17 @@ public class CustomerController {
 		List<Customer> allCustomers = customerService.getAllCustomers();
 		return allCustomers;
 	}
+
+	@GetMapping("/getCustomerCount")
+	public ResponseEntity<Long> getCustomerCount() {
+	    Long customerCount = customerService.getCustomerCount();
+	    return new ResponseEntity<>(customerCount, HttpStatus.OK);
+	}
+
+    @PutMapping("/update/balence")
+    public ResponseEntity<Customer> updateCustomerBalance(@RequestParam Long customerId, @RequestParam Double newBalance) {
+        Customer updatedCustomer = customerService.updateCustomerBalance(customerId, newBalance);
+        return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
+    }
 
 }

@@ -16,4 +16,8 @@ public interface CustomerService {
 	Customer getCustomerById( Long id);
 
 	Customer createCustomer(Customer customer);
+
+    Long getCustomerCount();
+
+    Customer updateCustomerBalance(Long customerId, Double newBalance);
 }

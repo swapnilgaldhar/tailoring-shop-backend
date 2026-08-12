@@ -2,7 +2,8 @@ package com.shop.tailors.entity;
 
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -25,6 +26,7 @@ public class   Measurement {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_Id", nullable = false)
+    @JsonBackReference("customer-measurements")
     private Customer customer;
 
     private LocalDate createdDate;
@@ -32,11 +34,13 @@ public class   Measurement {
     @OneToOne(mappedBy = "measurement",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
+    @JsonManagedReference("measurement-pant")
     private PantMeasurement pantMeasurement;
 
     @OneToOne(mappedBy = "measurement",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
+    @JsonManagedReference("measurement-shirt")
     private ShirtMeasurement shirtMeasurement;
 
   

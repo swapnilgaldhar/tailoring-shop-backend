@@ -25,6 +25,26 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
+	public Long getCustomerCount() {
+		Long customerCount = customerRepository.findTodaysCustomerCount();
+		return customerCount;
+	}
+
+	@Override
+	public Customer updateCustomerBalance(Long customerId, Double newBalance) {
+
+		Optional<Customer> customerOptional = customerRepository.findById(customerId);
+
+		if (customerOptional.isPresent()) {
+			Customer customer = customerOptional.get();
+			customer.setBalance(newBalance);
+			return customerRepository.save(customer);
+		} else {
+			throw new RuntimeException("Customer not found with Id : " + customerId);
+		}
+	}
+
+	@Override
 	public List<Customer> getAllCustomers() {
 
 		List<Customer> allCustomers =  customerRepository.findAll();

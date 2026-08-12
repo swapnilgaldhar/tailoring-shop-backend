@@ -1,16 +1,18 @@
 package com.shop.tailors.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
 @Table(name = "CUSTOMERS")
 @NoArgsConstructor
 @Entity
+@Getter
+@Setter
 public class Customer {
 	
 	@Id
@@ -28,7 +30,16 @@ public class Customer {
 	
 	private Double balance=0.0;
 
+	private LocalDate createdDate=LocalDate.now();
+
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference("customer-measurements")
 	private List<Measurement> measurements;
+
+	@OneToMany(mappedBy = "customer",
+			cascade = CascadeType.ALL,
+			orphanRemoval = true)
+	@JsonManagedReference("customer-bills")
+	private List<Bill> bills;
 
 }

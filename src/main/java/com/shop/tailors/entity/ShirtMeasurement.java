@@ -1,5 +1,6 @@
 package com.shop.tailors.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +16,7 @@ public class ShirtMeasurement {
 
     @OneToOne
     @JoinColumn(name = "measurement_Id", nullable = false, unique = true)
+    @JsonBackReference("measurement-shirt")
     private Measurement measurement;
     
     private Double chest;
