@@ -45,6 +45,11 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
+	public List<Customer> getCustomerWithBalance() {
+		return customerRepository.findCustomersWithBalance();
+	}
+
+	@Override
 	public List<Customer> getAllCustomers() {
 
 		List<Customer> allCustomers =  customerRepository.findAll();

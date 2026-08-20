@@ -3,6 +3,7 @@ package com.shop.tailors.repository;
 import com.shop.tailors.entity.Bill;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 public interface BillRepository extends JpaRepository<Bill, Long> {
 
@@ -20,4 +21,7 @@ public interface BillRepository extends JpaRepository<Bill, Long> {
 
     @Query(value = "SELECT COUNT(*) FROM customers WHERE balance > 0", nativeQuery = true)
     Integer getCustomerCountWithBalence();
+
+    @Query(value = "SELECT COUNT(*) FROM bills WHERE DATE(delivery_date) = :date", nativeQuery = true)
+    Double getDeliveryCountByDate(@Param("date") String date);
 }

@@ -49,4 +49,11 @@ public class CustomerController {
         return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
     }
 
+    //needs to implement in UI
+    @GetMapping("/getcustomer/withbalance")
+    public ResponseEntity<List<Customer>> getCustomerWithBalence(){
+        List<Customer> customersWithBalence = customerService.getCustomerWithBalance();
+        return new ResponseEntity<>(customersWithBalence, HttpStatus.OK);
+    }
+
 }
