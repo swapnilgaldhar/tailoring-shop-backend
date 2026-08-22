@@ -4,10 +4,7 @@ import com.shop.tailors.repository.BillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/report")
@@ -45,5 +42,12 @@ public class ReportController {
     public ResponseEntity<Integer> getCustomerCountWithBalance() {
         Integer customerCount = billingRepository.getCustomerCountWithBalence();
         return new ResponseEntity<>(customerCount, HttpStatus.OK);
+    }
+
+    // remaning to implement in ui
+    @GetMapping("/delivery/{date}")
+    public ResponseEntity<Double> getDeliveryByDate(@PathVariable String date) {
+        Double totalDelivery = billingRepository.getDeliveryCountByDate(date);
+        return new ResponseEntity<>(totalDelivery, HttpStatus.OK);
     }
 }

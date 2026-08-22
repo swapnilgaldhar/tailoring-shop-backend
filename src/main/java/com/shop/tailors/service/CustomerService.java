@@ -20,4 +20,6 @@ public interface CustomerService {
     Long getCustomerCount();
 
     Customer updateCustomerBalance(Long customerId, Double newBalance);
+
+	List<Customer> getCustomerWithBalance();
 }
