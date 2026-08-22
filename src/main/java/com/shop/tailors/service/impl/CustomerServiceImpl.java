@@ -37,7 +37,9 @@ public class CustomerServiceImpl implements CustomerService {
 
 		if (customerOptional.isPresent()) {
 			Customer customer = customerOptional.get();
-			customer.setBalance(newBalance);
+			Double prevBalence = customer.getBalance();
+			Double updatedBalance = prevBalence - newBalance;
+			customer.setBalance(updatedBalance);
 			return customerRepository.save(customer);
 		} else {
 			throw new RuntimeException("Customer not found with Id : " + customerId);

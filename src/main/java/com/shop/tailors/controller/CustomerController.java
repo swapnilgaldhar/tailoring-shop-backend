@@ -2,6 +2,7 @@ package com.shop.tailors.controller;
 
 import java.util.List;
 
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,8 +44,8 @@ public class CustomerController {
 	    return new ResponseEntity<>(customerCount, HttpStatus.OK);
 	}
 
-    @PutMapping("/update/balence")
-    public ResponseEntity<Customer> updateCustomerBalance(@RequestParam Long customerId, @RequestParam Double newBalance) {
+    @PutMapping("/update/balence/{customerId}/{newBalance}")
+    public ResponseEntity<Customer> updateCustomerBalance(@PathVariable Long customerId, @PathVariable Double newBalance) {
         Customer updatedCustomer = customerService.updateCustomerBalance(customerId, newBalance);
         return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
     }
