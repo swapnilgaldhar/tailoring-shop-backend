@@ -24,6 +24,7 @@ public class CustomerServiceImpl implements CustomerService {
 		return newCustomer;
 	}
 
+	
 	@Override
 	public Long getCustomerCount() {
 		Long customerCount = customerRepository.findTodaysCustomerCount();
