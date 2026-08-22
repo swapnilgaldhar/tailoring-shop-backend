@@ -1,6 +1,7 @@
 package com.shop.tailors.controller;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,7 @@ public class CustomerController {
     //needs to implement in UI
     @GetMapping("/getcustomer/withbalance")
     public ResponseEntity<List<Customer>> getCustomerWithBalence(){
+		//withdraw
         List<Customer> customersWithBalence = customerService.getCustomerWithBalance();
         return new ResponseEntity<>(customersWithBalence, HttpStatus.OK);
     }
