@@ -25,4 +25,16 @@ public interface MeasurementRepo extends JpaRepository<Measurement, Long> {
 
 	@Query("SELECT m FROM Measurement m WHERE m.customer.customerId = :customerId AND m.shirtMeasurementNo = :latestShirtMeasurementNo")
 	Measurement findMeasurementByCustomerIdAndLatestShirtMeasurementNo(Long customerId, Integer latestShirtMeasurementNo);
+
+	@Query("SELECT COALESCE(MAX(m.jacketMeasurementNo), 0) FROM Measurement m WHERE m.customer.customerId = :customerId")
+	Integer findLatestJacketMeasurementNoByCustomerId(Long customerId);
+
+	@Query("SELECT COALESCE(MAX(m.blazerMeasurementNo), 0) FROM Measurement m WHERE m.customer.customerId = :customerId")
+    Integer findLatestBlazerMeasurementNoByCustomerId(Long customerId);
+
+	@Query("SELECT m FROM Measurement m WHERE m.customer.customerId = :customerId AND m.jacketMeasurementNo = :latestJacketMeasurementNo")
+	Measurement findMeasurementByCustomerIdAndLatestJacketMeasurementNo(Long customerId, Integer latestJacketMeasurementNo);
+
+	@Query("SELECT m FROM Measurement m WHERE m.customer.customerId = :customerId AND m.blazerMeasurementNo = :latestBlazerMeasurementNo")
+	Measurement findMeasurementByCustomerIdAndLatestBlazerMeasurementNo(Long customerId, Integer latestBlazerMeasurementNo);
 }

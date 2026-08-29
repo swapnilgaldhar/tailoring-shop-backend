@@ -11,7 +11,6 @@ import com.shop.tailors.repository.BillRepository;
 import com.shop.tailors.repository.CustomerRepository;
 import com.shop.tailors.service.BillingService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
@@ -27,7 +26,7 @@ public class BillingServiceImpl implements BillingService {
     private final BillItemRepository billItemRepository;
 
     @Override
-    public void createBill(BillRequestDTO billRequestDTO) {
+    public BillRequestDTO createBill(BillRequestDTO billRequestDTO) {
 
         Customer customer = customerRepository.findById(billRequestDTO.getCustomerId())
                 .orElseThrow(() -> new RuntimeException("Customer not found"));
@@ -38,7 +37,9 @@ public class BillingServiceImpl implements BillingService {
         bill.setPaidAmount(billRequestDTO.getPaidAmount());
         bill.setPaymentMode(billRequestDTO.getPaymentMode());
         bill.setNotes(billRequestDTO.getNotes());
-        bill.setDiscount(billRequestDTO.getDiscount());
+        bill.setDiscountPer(billRequestDTO.getDiscountPer());
+        bill.setStatus("Pending");
+        bill.setDiscountAmount(billRequestDTO.getDiscountAmount());
         //total amount -- we will set below
         //balence amount
 
@@ -62,13 +63,15 @@ public class BillingServiceImpl implements BillingService {
             bill.getBillItems().add(item);
 
         }
-        bill.setTotalAmount(totalAmount - billRequestDTO.getDiscount());
-        bill.setBalanceAmount(totalAmount - billRequestDTO.getPaidAmount() -  billRequestDTO.getDiscount());
-        customer.setBalance(customer.getBalance() + bill.getBalanceAmount() - billRequestDTO.getDiscount());
+        bill.setTotalAmount(totalAmount - billRequestDTO.getDiscountAmount());//900
+        bill.setBalanceAmount(totalAmount - (billRequestDTO.getPaidAmount() + billRequestDTO.getDiscountAmount()));//
+        customer.setBalance((customer.getBalance() + bill.getBalanceAmount()) );//- billRequestDTO.getDiscountAmount()
         customerRepository.save(customer);
         billRepository.save(bill);
+        billRequestDTO.setBillNumber(bill.getBillNumber());
 
 
+        return billRequestDTO;
     }
 
     @Override
@@ -82,7 +85,8 @@ public class BillingServiceImpl implements BillingService {
         billRequestDTO.setBillDate(bill.getBillDate());
         billRequestDTO.setDeliveryDate(bill.getDeliveryDate());
         billRequestDTO.setNotes(bill.getNotes());
-        billRequestDTO.setDiscount(bill.getDiscount());
+        billRequestDTO.setDiscountAmount(bill.getDiscountAmount());
+        billRequestDTO.setDiscountPer(bill.getDiscountPer());
         billRequestDTO.setTotalAmount(bill.getTotalAmount());
         billRequestDTO.setPaymentMode(bill.getPaymentMode());
         billRequestDTO.setPaidAmount(bill.getPaidAmount());
@@ -100,4 +104,14 @@ public class BillingServiceImpl implements BillingService {
 
         return billRequestDTO;
     }
+
+    @Override
+    public void updateDeliveryStatus(String billNumber, String status) {
+        Bill bill = billRepository.findById(Long.parseLong(billNumber))
+                .orElseThrow(() -> new RuntimeException("Bill not found with id: " + billNumber));
+        bill.setStatus(status);
+        billRepository.save(bill);
+    }
+
+
 }

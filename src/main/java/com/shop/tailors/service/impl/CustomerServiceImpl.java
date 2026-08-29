@@ -1,8 +1,10 @@
 package com.shop.tailors.service.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import com.shop.tailors.dto.CustomerDetailsDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -53,6 +55,17 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
+	public Customer getCustomerByMobileNo(Long mobileNumber) {
+		Optional<Customer> customer = Optional.ofNullable(customerRepository.getCustomerByMobileNo(mobileNumber));
+
+		if (customer.isPresent()) {
+			return customer.get();
+		}
+
+		throw new RuntimeException("Customer not found with MobileNumber : " + mobileNumber);
+	}
+
+	@Override
 	public List<Customer> getAllCustomers() {
 
 		List<Customer> allCustomers =  customerRepository.findAll();
@@ -70,6 +83,30 @@ public class CustomerServiceImpl implements CustomerService {
 
         throw new RuntimeException("Customer not found with Id : " + customerId);
     }
+
+	@Override
+	public List<CustomerDetailsDTO> getCustomerWithDeliveryDate(LocalDate deliveryDate) {
+
+		List<CustomerDetailsDTO> customersWithDeleverydate = customerRepository.findCustomersByDeliveryDate(deliveryDate);
+		// Convert List<Customer> to List<CustomerDetailsDTO>
+		List<CustomerDetailsDTO> customersDetails = customersWithDeleverydate.stream().map(customer -> {
+			CustomerDetailsDTO customerDetailsDTO = new CustomerDetailsDTO();
+			customerDetailsDTO.setCustomerId(customer.getCustomerId());
+			customerDetailsDTO.setCustomerName(customer.getCustomerName());
+			customerDetailsDTO.setMobileNumber(customer.getMobileNumber());
+			customerDetailsDTO.setAddress(customer.getAddress());
+			customerDetailsDTO.setBillNumber(customer.getBillNumber());
+			customerDetailsDTO.setDeliveryDate(customer.getDeliveryDate());
+			customerDetailsDTO.setTotalAmount(customer.getTotalAmount());
+			customerDetailsDTO.setPaidAmount(customer.getPaidAmount());
+			customerDetailsDTO.setBalanceAmount(customer.getBalanceAmount());
+            customerDetailsDTO.setStatus(customer.getStatus());
+
+			return customerDetailsDTO;
+		}).toList();
+
+		return customersDetails;
+	}
 
 
 

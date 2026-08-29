@@ -8,32 +8,34 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class PantMeasurement {
+public class BlazerMeasurement {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer pantMeasurementId;
+    private Integer blazerMeasurementId;
 
     @OneToOne
     @JoinColumn(name = "measurement_Id", nullable = false, unique = true)
-    @JsonBackReference("measurement-pant")
+    @JsonBackReference("measurement-blazer")
     private Measurement measurement;
+
+    private Double height;
+
+    private Double chest;
 
     private Double waist;
 
     private Double hip;
 
-    private Double thigh;
+    private Double shoulder;
 
-    private Double knee;
+    private Double bicep;
 
-    private Double calf;
+    private Double sleeveLength;
 
-    private Double bottom;
-    
-    private Double length;
+    private String note;
 
-    private Double chainFly;
+    private Double cuffWidth;
 
-    private String notes;
+    private Double lapelWidth;
 }

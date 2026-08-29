@@ -57,6 +57,7 @@ public class  PantMeasurementServiceImpl implements PantMeasurementService {
         pantMeasurement.setCalf(pantMeasurementDTO.getCalf());
         pantMeasurement.setBottom(pantMeasurementDTO.getBottom());
         pantMeasurement.setLength(pantMeasurementDTO.getLength());
+        pantMeasurement.setChainFly(pantMeasurementDTO.getChainFly());
         pantMeasurement.setNotes(pantMeasurementDTO.getNotes());
 
      //   measurement.setPantMeasurement(pantMeasurement);
@@ -92,6 +93,7 @@ public class  PantMeasurementServiceImpl implements PantMeasurementService {
         pantMeasurementDTO.setKnee(pantMeasurement.getKnee());
         pantMeasurementDTO.setCalf(pantMeasurement.getCalf());
         pantMeasurementDTO.setBottom(pantMeasurement.getBottom());
+        pantMeasurementDTO.setChainFly(pantMeasurement.getChainFly());
         pantMeasurementDTO.setLength(pantMeasurement.getLength());
         pantMeasurementDTO.setNotes(pantMeasurement.getNotes());
 
