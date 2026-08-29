@@ -29,8 +29,6 @@ public class  PantMeasurementServiceImpl implements PantMeasurementService {
     @Autowired
     private PantMeasurementRepo pantMeasurementRepository;
 
-    //@Autowired
-  //  private Measurement measurement;
 
     @Override
     @Transactional

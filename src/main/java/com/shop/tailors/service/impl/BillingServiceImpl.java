@@ -38,8 +38,9 @@ public class BillingServiceImpl implements BillingService {
         bill.setPaymentMode(billRequestDTO.getPaymentMode());
         bill.setNotes(billRequestDTO.getNotes());
         bill.setDiscountPer(billRequestDTO.getDiscountPer());
-        bill.setStatus("Pending");
         bill.setDiscountAmount(billRequestDTO.getDiscountAmount());
+        bill.setStatus("Pending");
+
         //total amount -- we will set below
         //balence amount
 

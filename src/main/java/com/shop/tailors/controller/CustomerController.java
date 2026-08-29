@@ -50,7 +50,7 @@ public class CustomerController {
 		return allCustomers;
 	}
 
-    //get customer count
+    //get customer count created today //todays new customer
 	@GetMapping("/getCustomerCount")
 	public ResponseEntity<Long> getCustomerCount() {
 	    Long customerCount = customerService.getCustomerCount();
