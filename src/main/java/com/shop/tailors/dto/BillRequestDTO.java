@@ -25,7 +25,9 @@ public class BillRequestDTO {
 
     private Double paidAmount;
 
-    private Double discount;
+    private Double discountPer;
+
+    private Double discountAmount;
 
     private Double totalAmount;
 

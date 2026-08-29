@@ -31,6 +31,7 @@ public class ShirtMeasurementServiceImpl implements ShirtMeasurementService {
     @Autowired
     private ShirtMeasurementRepo shirtMeasurementRepository;
 
+
     @Override
     @Transactional
     public ShirtMeasurementDTO saveShirtMeasurement(ShirtMeasurementDTO shirtMeasurementDTO) {
@@ -93,15 +94,11 @@ public class ShirtMeasurementServiceImpl implements ShirtMeasurementService {
         log.info("Shirt Measurement : {}", shirtMeasurement);
 
         log.info("Retrieved customer {}: {}", customerId, customer);
-      //  Long customerid = customer.getCustomerId();
-      //  Measurement measurement = latestShirtMeasurement(customerid);
 
         if (measurement == null) {
             throw new NoSuchElementException("Measurement not found");
         }
 
-       // ShirtMeasurement shirtMeasurement = shirtMeasurementRepository
-              //  .getShirtMeasurementLatestShirtMeasurementNo(measurement.getMeasurementId());
 
         log.info("Retrieved shirt measurement for customer {}: {}", customerId, shirtMeasurement);
         if (shirtMeasurement == null) {

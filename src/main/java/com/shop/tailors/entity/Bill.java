@@ -24,7 +24,9 @@ public class Bill {
 
     private Double totalAmount;
 
-    private Double discount;
+    private Double discountPer;
+
+    private Double discountAmount;
 
     private  String paymentMode;
 
@@ -35,6 +37,8 @@ public class Bill {
     private Double paidAmount;
 
     private Double balanceAmount;
+
+    private String status;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")

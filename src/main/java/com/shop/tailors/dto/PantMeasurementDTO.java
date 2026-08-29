@@ -25,5 +25,7 @@ public class PantMeasurementDTO {
 
     private Double length;
 
+    private Double chainFly;
+
     private String notes;
 }

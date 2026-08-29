@@ -1,8 +1,12 @@
 package com.shop.tailors.controller;
 
+import com.shop.tailors.dto.BlazerMeasurementDTO;
+import com.shop.tailors.dto.JacketMeasurementDTO;
 import com.shop.tailors.dto.PantMeasurementDTO;
 import com.shop.tailors.dto.SherwaniMeasurementDTO;
 import com.shop.tailors.dto.ShirtMeasurementDTO;
+import com.shop.tailors.service.BlazerMeasurementService;
+import com.shop.tailors.service.JacketMeasurementService;
 import com.shop.tailors.service.PantMeasurementService;
 import com.shop.tailors.service.SherwaniMeasurementService;
 import com.shop.tailors.service.ShirtMeasurementService;
@@ -24,6 +28,11 @@ public class MeasurementController {
 	@Autowired
     private PantMeasurementService pantMeasurementService;
 
+    @Autowired
+    private JacketMeasurementService jacketMeasurementService;
+
+	@Autowired
+	private BlazerMeasurementService blazerMeasurementService;
 
 	@Autowired
 	private SherwaniMeasurementService sherwaniMeasurementService;
@@ -73,6 +82,56 @@ public class MeasurementController {
 		try {
 			PantMeasurementDTO pantMeasurement = pantMeasurementService.getPantMeasurement(customerId);
 			return new ResponseEntity<>(pantMeasurement, HttpStatus.OK);
+		} catch (java.util.NoSuchElementException ex) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} catch (IllegalArgumentException ex) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
+    @PostMapping("/create/jacket/measurement")
+    public ResponseEntity<JacketMeasurementDTO> createJacketMeasurement(@RequestBody JacketMeasurementDTO jacketRequest) {
+        try {
+            JacketMeasurementDTO savedJacketMeasurement = jacketMeasurementService.createJacketMeasurement(jacketRequest);
+            return new ResponseEntity<>(savedJacketMeasurement, HttpStatus.CREATED);
+        } catch (java.util.NoSuchElementException ex) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (IllegalArgumentException ex) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+	@GetMapping("/get/jacket/measurement/{id}")
+	public ResponseEntity<JacketMeasurementDTO> getJacketMeasurement(@PathVariable("id") Long customerId) {
+
+		try {
+			JacketMeasurementDTO JacketMeasurementDTO = jacketMeasurementService.getJacketMeasurement(customerId);
+			return new ResponseEntity<>(JacketMeasurementDTO, HttpStatus.OK);
+		} catch (java.util.NoSuchElementException ex) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} catch (IllegalArgumentException ex) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	@PostMapping("/create/blazer/measurement")
+	public ResponseEntity<BlazerMeasurementDTO> createBlazerMeasurement(@RequestBody BlazerMeasurementDTO blazerRequest) {
+		try {
+			BlazerMeasurementDTO savedBlazerMeasurement = blazerMeasurementService.createBlazerMeasurement(blazerRequest);
+			return new ResponseEntity<>(savedBlazerMeasurement, HttpStatus.CREATED);
+		} catch (java.util.NoSuchElementException ex) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} catch (IllegalArgumentException ex) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
+
+	@GetMapping("/get/blazer/measurement/{id}")
+	public ResponseEntity<BlazerMeasurementDTO> getBlazerMeasurement(@PathVariable("id") Long customerId) {
+
+		try {
+			BlazerMeasurementDTO blazerMeasurement = blazerMeasurementService.getBlazerMeasurement(customerId);
+			return new ResponseEntity<>(blazerMeasurement, HttpStatus.OK);
 		} catch (java.util.NoSuchElementException ex) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		} catch (IllegalArgumentException ex) {
