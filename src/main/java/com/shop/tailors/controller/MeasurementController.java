@@ -3,10 +3,12 @@ package com.shop.tailors.controller;
 import com.shop.tailors.dto.BlazerMeasurementDTO;
 import com.shop.tailors.dto.JacketMeasurementDTO;
 import com.shop.tailors.dto.PantMeasurementDTO;
+import com.shop.tailors.dto.SherwaniMeasurementDTO;
 import com.shop.tailors.dto.ShirtMeasurementDTO;
 import com.shop.tailors.service.BlazerMeasurementService;
 import com.shop.tailors.service.JacketMeasurementService;
 import com.shop.tailors.service.PantMeasurementService;
+import com.shop.tailors.service.SherwaniMeasurementService;
 import com.shop.tailors.service.ShirtMeasurementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +33,10 @@ public class MeasurementController {
 
 	@Autowired
 	private BlazerMeasurementService blazerMeasurementService;
+
+	@Autowired
+	private SherwaniMeasurementService sherwaniMeasurementService;
+
 
 
 	@PostMapping("/create/shirt/measurement")
@@ -133,5 +139,25 @@ public class MeasurementController {
 		}
 	}
 
+
+	// shubham changes
+	@PostMapping("/create/sherwani/measurement")
+	public ResponseEntity<SherwaniMeasurementDTO> createSherwaniMeasurement(@RequestBody SherwaniMeasurementDTO sherwaniRequest) {
+		// Implement the logic to save Sherwani measurement data
+		SherwaniMeasurementDTO newRecord = sherwaniMeasurementService.createSherwaniMeasurement(sherwaniRequest);
+		return new ResponseEntity<>(newRecord, HttpStatus.CREATED);
+	}
+
+	@GetMapping	("/get/sherwani/measurement/{id}")
+	public ResponseEntity<SherwaniMeasurementDTO> getSherwaniMeasurement(@PathVariable("id") Long customerId) {
+		try {
+			SherwaniMeasurementDTO sherwaniMeasurement = sherwaniMeasurementService.getSherwaniMeasurement(customerId);
+			return new ResponseEntity<>(sherwaniMeasurement, HttpStatus.OK);
+		} catch (java.util.NoSuchElementException ex) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		} catch (IllegalArgumentException ex) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+	}
 
 }
