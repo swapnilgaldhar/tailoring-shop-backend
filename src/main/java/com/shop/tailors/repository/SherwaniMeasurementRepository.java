@@ -1,4 +1,10 @@
 package com.shop.tailors.repository;
 
-public interface SherwaniMeasurementRepository {
+import com.shop.tailors.entity.SherwaniMeasurement;
+import com.shop.tailors.entity.ShirtMeasurement;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface SherwaniMeasurementRepository extends JpaRepository<SherwaniMeasurement, Integer> {
+
+git
 }
