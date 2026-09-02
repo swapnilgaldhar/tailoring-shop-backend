@@ -28,7 +28,7 @@ public class ReportController {
 
     @GetMapping("/todays/delivery")
     public ResponseEntity<Double> getTodaysDelivery() {
-        Double totalDelivery = billingRepository.getTodaysDeliveryAmount();
+        Double totalDelivery = billingRepository.getTodaysDeliveryCount();
         return new ResponseEntity<>(totalDelivery, HttpStatus.OK);
     }
 
@@ -44,7 +44,7 @@ public class ReportController {
         return new ResponseEntity<>(customerCount, HttpStatus.OK);
     }
 
-    // remaning to implement in ui
+
     @GetMapping("/delivery/{date}")
     public ResponseEntity<Double> getDeliveryByDate(@PathVariable String date) {
         Double totalDelivery = billingRepository.getDeliveryCountByDate(date);

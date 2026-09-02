@@ -40,7 +40,7 @@ public interface CustomerRepository  extends JpaRepository<Customer, Long>{
         FROM customers c
         JOIN bills b 
             ON c.customer_id = b.customer_id
-        WHERE b.delivery_date = :deliveryDate
+        WHERE b.delivery_date = :deliveryDate 
         """, nativeQuery = true)
     List<CustomerDetailsDTO> findCustomersByDeliveryDate(
             @Param("deliveryDate") LocalDate deliveryDate);
