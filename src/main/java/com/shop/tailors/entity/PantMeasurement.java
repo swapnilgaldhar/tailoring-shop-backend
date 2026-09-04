@@ -19,20 +19,28 @@ public class PantMeasurement {
     @JsonBackReference("measurement-pant")
     private Measurement measurement;
 
+    @Column(nullable = false)
     private Double waist;
 
+    @Column(nullable = false)
     private Double hip;
 
+    @Column(nullable = false)
     private Double thigh;
 
+    @Column(nullable = false)
     private Double knee;
 
+    @Column(nullable = false)
     private Double calf;
 
+    @Column(nullable = false)
     private Double bottom;
-    
+
+    @Column(nullable = false)
     private Double length;
 
+    @Column(nullable = false)
     private Double chainFly;
 
     private String notes;

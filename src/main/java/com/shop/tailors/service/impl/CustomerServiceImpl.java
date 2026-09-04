@@ -48,6 +48,9 @@ public class CustomerServiceImpl implements CustomerService {
 		if (customerOptional.isPresent()) {
 			Customer customer = customerOptional.get();
 			Double prevBalence = customer.getBalance();
+			if((prevBalence <= newBalance) ||  (newBalance <= 0)) {
+				throw new RuntimeException("Invalid balance update. Previous balance: " + prevBalence + ", New balance: " + newBalance);
+			}
 			Double updatedBalance = prevBalence - newBalance;
 			customer.setBalance(updatedBalance);
 

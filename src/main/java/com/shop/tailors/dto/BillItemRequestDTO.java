@@ -11,7 +11,7 @@ public class BillItemRequestDTO {
 
     private String itemDescription;
 
-    private Integer quantity;
+    private Double quantity;
 
     private Double rate;
 

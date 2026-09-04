@@ -19,16 +19,22 @@ public class JacketMeasurement {
     @JsonBackReference("measurement-jacket")
     private Measurement measurement;
 
+    @Column(nullable = false)
     private Double length;
 
+    @Column(nullable = false)
     private Double chest;
 
+    @Column(nullable = false)
     private Double waist;
 
+    @Column(nullable = false)
     private Double hip;
 
+    @Column(nullable = false)
     private Double shoulder;
 
+    @Column(nullable = false)
     private Double standCollar;
 
     private String notes;

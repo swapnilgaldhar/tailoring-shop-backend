@@ -14,8 +14,12 @@ public class Karagir {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer karagirId;
+    @Column(nullable = false)
     private String karagirName;
+    @Column(nullable = false)
     private String karagirPhone;
+    @Column(nullable = false)
     private String karagirAddress;
+    @Column(nullable = false)
     private String karagirSpeciality;
 }
