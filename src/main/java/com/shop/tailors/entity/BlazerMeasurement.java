@@ -33,7 +33,7 @@ public class BlazerMeasurement {
 
     private Double sleeveLength;
 
-    private String note;
+    private String notes;
 
     private Double cuffWidth;
 

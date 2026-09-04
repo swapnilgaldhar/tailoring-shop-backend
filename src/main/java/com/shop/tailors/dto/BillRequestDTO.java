@@ -33,5 +33,7 @@ public class BillRequestDTO {
 
     private Double balanceAmount;
 
+    private LocalDate lastUpdateBill;
+
     private List<BillItemRequestDTO> billItems = new ArrayList<>();
 }

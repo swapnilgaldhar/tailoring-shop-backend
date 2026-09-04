@@ -54,7 +54,7 @@ public class JacketMeasurementImpl implements JacketMeasurementService {
         jacketMeasurement.setShoulder(jacketMeasurmentDTO.getShoulder());
         jacketMeasurement.setLength(jacketMeasurmentDTO.getLength());
         jacketMeasurement.setStandCollar(jacketMeasurmentDTO.getStandCollar());
-        jacketMeasurement.setNote(jacketMeasurmentDTO.getNote());
+        jacketMeasurement.setNotes(jacketMeasurmentDTO.getNotes());
 
 
         log.info("Saving jacket measurement for customer {}: {}", customer.getCustomerId(), jacketMeasurement);
@@ -107,7 +107,7 @@ public class JacketMeasurementImpl implements JacketMeasurementService {
         jacketMeasurementDTO.setShoulder(jacketMeasurement.getShoulder());
         jacketMeasurementDTO.setLength(jacketMeasurement.getLength());
         jacketMeasurementDTO.setStandCollar(jacketMeasurement.getStandCollar());
-        jacketMeasurementDTO.setNote(jacketMeasurement.getNote());
+        jacketMeasurementDTO.setNotes(jacketMeasurement.getNotes());
 
         return jacketMeasurementDTO;
     }

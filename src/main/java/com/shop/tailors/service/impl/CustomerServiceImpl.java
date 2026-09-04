@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import com.shop.tailors.dto.CustomerDetailsDTO;
+import com.shop.tailors.exceptions.CustomerNotFoundException;
+import com.shop.tailors.repository.BillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,9 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Autowired
 	private CustomerRepository customerRepository;
+
+	@Autowired
+	private BillRepository billRepository;
 
 	@Override
 	public Customer createCustomer(Customer customer) {
@@ -38,11 +43,15 @@ public class CustomerServiceImpl implements CustomerService {
 
 		Optional<Customer> customerOptional = customerRepository.findById(customerId);
 
+
+
 		if (customerOptional.isPresent()) {
 			Customer customer = customerOptional.get();
 			Double prevBalence = customer.getBalance();
 			Double updatedBalance = prevBalence - newBalance;
 			customer.setBalance(updatedBalance);
+
+			customer.setLastUpdateDate(LocalDate.now());
 			return customerRepository.save(customer);
 		} else {
 			throw new RuntimeException("Customer not found with Id : " + customerId);
@@ -75,13 +84,10 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
     public Customer getCustomerById(Long customerId) {
 
-        Optional<Customer> customer = customerRepository.findById(customerId);
+        Optional<Customer> customer = Optional.of(customerRepository.findById(customerId).
+                orElseThrow(() -> new CustomerNotFoundException("Customer not found with Id : " + customerId)));
 
-        if (customer.isPresent()) {
-            return customer.get();
-        }
-
-        throw new RuntimeException("Customer not found with Id : " + customerId);
+        return customer.get();
     }
 
 	@Override

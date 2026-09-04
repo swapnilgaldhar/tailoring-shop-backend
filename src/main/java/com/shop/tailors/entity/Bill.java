@@ -40,6 +40,8 @@ public class Bill {
 
     private String status;
 
+    private LocalDate lastUpdateBill;
+
     @ManyToOne
     @JoinColumn(name = "customer_id")
     @JsonBackReference("customer-bills")

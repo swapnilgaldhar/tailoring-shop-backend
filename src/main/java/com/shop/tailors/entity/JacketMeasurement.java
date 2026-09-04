@@ -31,7 +31,7 @@ public class JacketMeasurement {
 
     private Double standCollar;
 
-    private Double note;
+    private String notes;
 
 
 }

@@ -30,5 +30,5 @@ public class BlazerMeasurementDTO {
 
     private Double lapelWidth;
 
-    private String note;
+    private String notes;
 }

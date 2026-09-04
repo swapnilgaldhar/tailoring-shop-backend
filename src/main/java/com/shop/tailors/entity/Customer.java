@@ -32,6 +32,8 @@ public class Customer {
 
 	private LocalDate createdDate=LocalDate.now();
 
+	private LocalDate lastUpdateDate=LocalDate.now();
+
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference("customer-measurements")
 	private List<Measurement> measurements;
