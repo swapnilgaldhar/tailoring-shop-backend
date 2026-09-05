@@ -1,5 +1,6 @@
 package com.shop.tailors.repository;
 
+import com.shop.tailors.dto.CustomerDTO;
 import com.shop.tailors.dto.CustomerDetailsDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,6 +11,7 @@ import com.shop.tailors.entity.Customer;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CustomerRepository  extends JpaRepository<Customer, Long>{
@@ -22,7 +24,7 @@ public interface CustomerRepository  extends JpaRepository<Customer, Long>{
     List<Customer> findCustomersWithBalance();
 
     @Query(value = "SELECT * FROM Customers WHERE mobile_number = :mobileNumber", nativeQuery = true)
-    Customer getCustomerByMobileNo(@Param("mobileNumber") Long mobileNumber);
+    Optional<CustomerDTO> getCustomerByMobileNo(@Param("mobileNumber") Long mobileNumber);
 
 
     @Query(value = """
