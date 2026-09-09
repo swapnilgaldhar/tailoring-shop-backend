@@ -39,5 +39,11 @@ public class BillingController {
         return "Delivery status updated successfully";
     }
 
+    @GetMapping("/getallbills/{customerid}")
+    public ResponseEntity<List<BillRequestDTO>> getAllBillsForCustomer(@PathVariable("customerid") Long customerId) {
+        List<BillRequestDTO> bills = billingService.getAllBillsForCustomer(customerId);
+        return new ResponseEntity<>(bills, HttpStatus.OK);
+    }
+
 
 }

@@ -78,6 +78,7 @@ public class BlazerMeasurementServiceImpl implements BlazerMeasurementService {
 
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new RuntimeException("Customer not found with id: " + customerId));
+
         Long customerid = customer.getCustomerId();
         Measurement measurement = latestBlazerMeasurement(customerid);
 

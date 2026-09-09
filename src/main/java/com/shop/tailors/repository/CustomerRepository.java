@@ -23,7 +23,16 @@ public interface CustomerRepository  extends JpaRepository<Customer, Long>{
     @Query(value = "SELECT * FROM customers WHERE balance > 0", nativeQuery = true)
     List<Customer> findCustomersWithBalance();
 
-    @Query(value = "SELECT * FROM Customers WHERE mobile_number = :mobileNumber", nativeQuery = true)
+    @Query(value = "SELECT\n" +
+            "        customer_id,\n" +
+            "        customer_name,\n" +
+            "        mobile_number,\n" +
+            "        address,\n" +
+            "        balance,\n" +
+            "        created_date,\n" +
+            "        last_update_date\n" +
+            "    FROM customers\n" +
+            "    WHERE mobile_number = :mobileNumber", nativeQuery = true)
     Optional<CustomerDTO> getCustomerByMobileNo(@Param("mobileNumber") Long mobileNumber);
 
 

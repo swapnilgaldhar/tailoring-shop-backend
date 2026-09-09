@@ -4,6 +4,8 @@ import com.shop.tailors.dto.BillRequestDTO;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface BillingService {
 
@@ -12,4 +14,6 @@ public interface BillingService {
     BillRequestDTO getBillDetails(String billNumber);
 
     void updateDeliveryStatus(String billNumber, String status);
+
+    List<BillRequestDTO> getAllBillsForCustomer(Long customerId);
 }
