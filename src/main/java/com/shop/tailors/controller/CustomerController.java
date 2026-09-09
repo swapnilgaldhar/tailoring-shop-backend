@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Logger;
 
+import com.shop.tailors.dto.CustomerDTO;
 import com.shop.tailors.dto.CustomerDetailsDTO;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,33 +25,33 @@ public class CustomerController {
 	private CustomerService customerService;
 	//create customer
 	@PostMapping("/create")
-	public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer) {
-		Customer newCustomer = customerService.createCustomer(customer);
-		return new ResponseEntity<>(newCustomer, HttpStatus.CREATED);
+	public ResponseEntity<String> createCustomer(@RequestBody Customer customer) {
+		customerService.createCustomer(customer);
+		return new ResponseEntity<>("Customer created successfully", HttpStatus.CREATED);
 	}
 
     //get customer with id
 	@GetMapping("/getcustomer/{id}")
-	public ResponseEntity<Customer> getCustomerById(@PathVariable Long id){
-		Customer oneCustomer = customerService.getCustomerById(id);
+	public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable Long id){
+		CustomerDTO oneCustomer = customerService.	getCustomerById(id);
 		return new ResponseEntity<>(oneCustomer, HttpStatus.OK);
 	}
 
     //get customer with mobile number
 	@GetMapping("/getcustomer/withmobileno/{mobileNumber}")
-	public ResponseEntity<Customer> getCustomerByMobileNo(@PathVariable Long mobileNumber){
-		Customer oneCustomer = customerService.getCustomerByMobileNo(mobileNumber);
+	public ResponseEntity<CustomerDTO> getCustomerByMobileNo(@PathVariable Long mobileNumber){
+		CustomerDTO oneCustomer = customerService.getCustomerByMobileNo(mobileNumber);
 		return new ResponseEntity<>(oneCustomer, HttpStatus.OK);
 	}
 
     //get all customer
 	@GetMapping("/getallcustomer")
-	public List<Customer> getAllCustomers(){
-		List<Customer> allCustomers = customerService.getAllCustomers();
+	public List<CustomerDTO> getAllCustomers(){
+		List<CustomerDTO> allCustomers = customerService.getAllCustomers();
 		return allCustomers;
 	}
 
-    //get customer count
+    //get customer count created today //todays new customer
 	@GetMapping("/getCustomerCount")
 	public ResponseEntity<Long> getCustomerCount() {
 	    Long customerCount = customerService.getCustomerCount();
@@ -59,16 +60,16 @@ public class CustomerController {
 
     //update balence
     @PutMapping("/update/balence/{customerId}/{newBalance}")
-    public ResponseEntity<Customer> updateCustomerBalance(@PathVariable Long customerId, @PathVariable Double newBalance) {
-        Customer updatedCustomer = customerService.updateCustomerBalance(customerId, newBalance);
-        return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
+    public ResponseEntity<String> updateCustomerBalance(@PathVariable Long customerId, @PathVariable Double newBalance) {
+        customerService.updateCustomerBalance(customerId, newBalance);
+        return new ResponseEntity<>("Customer balance updated successfully", HttpStatus.OK);
     }
 
     //get customer with balance
     @GetMapping("/getcustomer/withbalance")
-    public ResponseEntity<List<Customer>> getCustomerWithBalence(){
+    public ResponseEntity<List<CustomerDTO>> getCustomerWithBalence(){
 		//withdraw
-        List<Customer> customersWithBalence = customerService.getCustomerWithBalance();
+        List<CustomerDTO> customersWithBalence = customerService.getCustomerWithBalance();
         return new ResponseEntity<>(customersWithBalence, HttpStatus.OK);
     }
 

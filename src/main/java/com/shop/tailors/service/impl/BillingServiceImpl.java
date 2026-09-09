@@ -13,6 +13,8 @@ import com.shop.tailors.service.BillingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+
 
 @Service
 @RequiredArgsConstructor
@@ -38,8 +40,10 @@ public class BillingServiceImpl implements BillingService {
         bill.setPaymentMode(billRequestDTO.getPaymentMode());
         bill.setNotes(billRequestDTO.getNotes());
         bill.setDiscountPer(billRequestDTO.getDiscountPer());
-        bill.setStatus("Pending");
         bill.setDiscountAmount(billRequestDTO.getDiscountAmount());
+        bill.setStatus("Pending");
+        bill.setLastUpdateBill(LocalDate.now());
+
         //total amount -- we will set below
         //balence amount
 

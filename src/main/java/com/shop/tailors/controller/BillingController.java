@@ -22,7 +22,7 @@ public class BillingController {
 
     @PostMapping("/createbill")
     public ResponseEntity<BillRequestDTO> createBill(@RequestBody BillRequestDTO billRequestDTO) {
-        // Implement the logic to create a bill using billingService
+
         BillRequestDTO CreatedbillRequestDTO =  billingService.createBill(billRequestDTO); // Assuming you have a method to create a bill in BillingService
         return new ResponseEntity<>(CreatedbillRequestDTO, HttpStatus.CREATED);
     }

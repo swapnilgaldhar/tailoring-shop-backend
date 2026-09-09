@@ -56,7 +56,7 @@ public class BlazerMeasurementServiceImpl implements BlazerMeasurementService {
         blazerMeasurement.setSleeveLength(blazerMeasurementDTO.getSleeveLength());
         blazerMeasurement.setCuffWidth(blazerMeasurementDTO.getCuffWidth());
         blazerMeasurement.setLapelWidth(blazerMeasurementDTO.getLapelWidth());
-        blazerMeasurement.setNote(blazerMeasurementDTO.getNote());
+        blazerMeasurement.setNotes(blazerMeasurementDTO.getNotes());
 
         log.info("Saving blazer measurement for customer {}: {}", customer.getCustomerId(), blazerMeasurement);
 
@@ -98,7 +98,7 @@ public class BlazerMeasurementServiceImpl implements BlazerMeasurementService {
         blazerMeasurementDTO.setSleeveLength(blazerMeasurement.getSleeveLength());
         blazerMeasurementDTO.setCuffWidth(blazerMeasurement.getCuffWidth());
         blazerMeasurementDTO.setLapelWidth(blazerMeasurement.getLapelWidth());
-        blazerMeasurementDTO.setNote(blazerMeasurement.getNote());
+        blazerMeasurementDTO.setNotes(blazerMeasurement.getNotes());
 
         return blazerMeasurementDTO;
     }

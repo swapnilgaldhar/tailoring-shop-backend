@@ -17,7 +17,7 @@ public class BillItem {
 
     private String itemName;
 
-    private int quantity;
+    private Double quantity;
 
     private Double rate;
 

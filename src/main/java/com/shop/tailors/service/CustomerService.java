@@ -3,6 +3,7 @@ package com.shop.tailors.service;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.shop.tailors.dto.CustomerDTO;
 import com.shop.tailors.dto.CustomerDetailsDTO;
 import org.springframework.stereotype.Service;
 
@@ -13,19 +14,19 @@ public interface CustomerService {
 
 
 
-	List<Customer> getAllCustomers();
+	List<CustomerDTO> getAllCustomers();
 
-	Customer getCustomerById( Long id);
+	CustomerDTO getCustomerById( Long id);
 
 	Customer createCustomer(Customer customer);
 
     Long getCustomerCount();
 
-    Customer updateCustomerBalance(Long customerId, Double newBalance);
+    String updateCustomerBalance(Long customerId, Double newBalance);
 
-	List<Customer> getCustomerWithBalance();
+	List<CustomerDTO> getCustomerWithBalance();
 
-    Customer getCustomerByMobileNo(Long mobileNumber);
+    CustomerDTO getCustomerByMobileNo(Long mobileNumber);
 
 	List<CustomerDetailsDTO> getCustomerWithDeliveryDate(LocalDate deliveryDate);
 }

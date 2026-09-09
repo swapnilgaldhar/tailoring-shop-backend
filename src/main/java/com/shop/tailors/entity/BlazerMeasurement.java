@@ -19,23 +19,32 @@ public class BlazerMeasurement {
     @JsonBackReference("measurement-blazer")
     private Measurement measurement;
 
+    @Column(nullable = false)
     private Double height;
 
+    @Column(nullable = false)
     private Double chest;
 
+    @Column(nullable = false)
     private Double waist;
 
+    @Column(nullable = false)
     private Double hip;
 
+    @Column(nullable = false)
     private Double shoulder;
 
+    @Column(nullable = false)
     private Double bicep;
 
+    @Column(nullable = false)
     private Double sleeveLength;
 
-    private String note;
+    private String notes;
 
+    @Column(nullable = false)
     private Double cuffWidth;
 
+    @Column(nullable = false)
     private Double lapelWidth;
 }

@@ -22,8 +22,11 @@ public class Measurement {
 
     private Integer shirtMeasurementNo;
 
-    // Added the actual field here
+    private Integer jacketMeasurementNo;
+
     private Integer sherwaniMeasurementNo;
+
+    private Integer blazerMeasurementNo;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_Id", nullable = false)
@@ -44,4 +47,12 @@ public class Measurement {
     @OneToOne(mappedBy = "measurement", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("measurement-sherwani")
     private SherwaniMeasurement sherwaniMeasurement;
+
+    @OneToOne(mappedBy = "measurement", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("measurement-jacket")
+    private JacketMeasurement jacketMeasurement;
+
+    @OneToOne(mappedBy = "measurement", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("measurement-blazer")
+    private BlazerMeasurement blazerMeasurement;
 }

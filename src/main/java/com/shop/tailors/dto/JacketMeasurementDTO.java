@@ -25,5 +25,5 @@ public class JacketMeasurementDTO {
 
     private Double standCollar;
 
-    private Double note;
+    private String notes;
 }
