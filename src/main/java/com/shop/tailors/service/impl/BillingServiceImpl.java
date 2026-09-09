@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Service
@@ -115,6 +116,41 @@ public class BillingServiceImpl implements BillingService {
                 .orElseThrow(() -> new RuntimeException("Bill not found with id: " + billNumber));
         bill.setStatus(status);
         billRepository.save(bill);
+    }
+
+    @Override
+    public List<BillRequestDTO> getAllBillsForCustomer(Long customerId) {
+
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new RuntimeException("Customer not found with id: " + customerId));
+
+        List<Bill> bills = billRepository.findByCustomerId(customerId);
+
+        return bills.stream().map(bill -> {
+            BillRequestDTO billRequestDTO = new BillRequestDTO();
+            billRequestDTO.setBillNumber(bill.getBillNumber());
+            billRequestDTO.setBillDate(bill.getBillDate());
+            billRequestDTO.setDeliveryDate(bill.getDeliveryDate());
+            billRequestDTO.setNotes(bill.getNotes());
+            billRequestDTO.setDiscountAmount(bill.getDiscountAmount());
+            billRequestDTO.setDiscountPer(bill.getDiscountPer());
+            billRequestDTO.setTotalAmount(bill.getTotalAmount());
+            billRequestDTO.setPaymentMode(bill.getPaymentMode());
+            billRequestDTO.setPaidAmount(bill.getPaidAmount());
+            billRequestDTO.setBalanceAmount(bill.getBalanceAmount());
+            billRequestDTO.setCustomerId(bill.getCustomer().getCustomerId());
+
+            for (BillItem item : bill.getBillItems()) {
+                BillItemRequestDTO itemDTO = new BillItemRequestDTO();
+                itemDTO.setItemName(item.getItemName());
+                itemDTO.setQuantity(item.getQuantity());
+                itemDTO.setRate(item.getRate());
+                itemDTO.setAmount(item.getAmount());
+                billRequestDTO.getBillItems().add(itemDTO);
+            }
+
+            return billRequestDTO;
+        }).toList();
     }
 
 
