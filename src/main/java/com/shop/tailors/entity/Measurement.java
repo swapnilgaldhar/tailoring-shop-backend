@@ -55,4 +55,20 @@ public class Measurement {
     @OneToOne(mappedBy = "measurement", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference("measurement-blazer")
     private BlazerMeasurement blazerMeasurement;
+
+    public Integer getJacketMeasurementNo() {
+        return jacketMeasurementNo;
+    }
+
+    public void setJacketMeasurementNo(Integer jacketMeasurementNo) {
+        this.jacketMeasurementNo = jacketMeasurementNo;
+    }
+
+    public Integer getBlazerMeasurementNo() {
+        return blazerMeasurementNo;
+    }
+
+    public void setBlazerMeasurementNo(Integer blazerMeasurementNo) {
+        this.blazerMeasurementNo = blazerMeasurementNo;
+    }
 }
