@@ -18,7 +18,7 @@ import com.shop.tailors.service.CustomerService;
 
 @RestController
 @RequestMapping("/api/customer")
-@CrossOrigin(origins = "http://localhost:5173")
+//@CrossOrigin(origins = "http://localhost:5173")
 public class CustomerController {
 	
 	@Autowired

@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/stichingorder")
-@CrossOrigin(origins = "http://localhost:5173")
+//@CrossOrigin(origins = "http://localhost:5173")
 public class StichingOrderController {
 
     @Autowired
